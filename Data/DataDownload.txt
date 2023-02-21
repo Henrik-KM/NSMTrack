@@ -1,0 +1,4 @@
+Please download the sample dataset included for this demo from:
+https://chalmers-my.sharepoint.com/:f:/g/personal/hmoberg_chalmers_se/ElpFotTfPNNInU2YghmGN3IBs5cPPgMxjsdPwtsXserlYA?e=53WB9a
+And place the folder "Demo Data" in directory NSM-ML/Data/
+This data corresponds to the artificial dataset used for Fig. S14.

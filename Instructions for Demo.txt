@@ -1,0 +1,71 @@
+1. System Requirements
+Code tested on:
+Microsoft Windows 10, Version 20H2 Build 19042.928, Version 21H2 Build 19044.1586, 
+Microsoft Windows 11, Version 21H2 Build 22000.556
+Devuan GNU/Linux 4 (chimaera) 5.10.0-13-amd64 (use requirements.txt)
+
+Software dependencies are:
+Python v3.8, specific packages are found in environment2.yml
+
+---------------------------------
+
+2. Demo Guide
+
+Step 1. Installation
+Install the package dependencies, ideally using conda environment manager, e.g. through the command:
+conda env create -f environment2.yml
+Install time: ~5 minutes on a regular Windows desktop
+If this does not work on your system, or you wish to use Linux, an alternative is to run
+pip install -r requirements.txt
+
+
+Step 2. Data Download
+Please download the sample dataset included for this demo from:
+https://chalmers-my.sharepoint.com/:f:/g/personal/hmoberg_chalmers_se/ElpFotTfPNNInU2YghmGN3IBs5cPPgMxjsdPwtsXserlYA?e=53WB9a
+And place the folder "Demo Data" in directory NSM-ML/Data/
+This data corresponds to the artificial dataset used for Fig. S14, and is ~4.5GB in size.
+
+Step 2. Pre-processing
+Run pre-processImages.py. This will pre-process the sample dataset found in Data/Demo Data. and save its results in Data/Preprocessed Sample Data
+Run time: ~30 minutes on a regular Windows desktop
+
+Step 3. Analysis
+Run PredictDemo.py. This will analyze the pre-processed sample dataset found in Data/Preprocessed Sample Data, and save the resulting figures in Results/.
+Run time: ~2-3 minutes on a regular Windows desktop
+
+---------------------------------
+
+3. Demo Explanation
+
+PredictDemo.py contains four separated cells:
+
+The first cell defines the base models used for initial iOC and Diffusivity prediction, as well as the ensemble models for more accurate values. Nothing needs changing here.
+
+The second cell defines user-entered variables, where the user can change "plotImages" to True to view the networks' predictions in the kymographs, and "saveImages" to True to save said images.
+
+The third cell runs and saves the predictions on the supplied sample dataset.
+
+The fourth and final cell plots the results in three figures:
+
+Figure 1: The histogram of predicted iOC values by the ensemble model for each separate trajectory, where the counts of the histogram corresponds to the length (#frames) of said trajectory.
+The data-set contains 6 distinct values of iOC, ranging from 0.75 *10^-4 nm (corresponding to roughly 45 kDa in our channels) to 20 *10^-4 nm (corresponding to roughly 1100 kDa), 
+and this should be clearly represented in this figure with corresponding gaussian fits for greater clarity. 
+
+Figure 2: Similarly, the histogram of predicted D values by the ensemble model for each separate trajectory. The data-set contains 3 distinct values of D; 10, 20 and 50 μm^2/s,
+which is clearly represented in this figure with corresponding gaussian fits for greater clarity. 
+
+Figure 3: Scatter plot of iOC vs D values. It should be clear that, apart from some outliers, there are exactly 18 clusters corresponding to the 18 permutations of the 6 iOC values and 3 D values in the dataset.
+
+---------------------------------
+
+4. Further Software
+
+Predict.py contains the basic prediction script used in our lab for quick real-time analysis. For optimal results, an ensemble of models should be selected and fine-tuned
+for the particular D/iOC values and noise parameters relevant in any given problem, as was for instance the case for exosome analysis. The YOLO
+should also be trained and used if the segmentations are imperfect (i.e. if the noise is only partially corrected for). 
+
+
+
+
+
+
